@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CVAG Parcel Survey</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+	
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="css/mdep.css" rel="stylesheet">
+  
+    <script type="text/javascript" src="js/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/h5utils.js"></script>
+	<script type="text/javascript" src="js/jquery.base64.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+ 
+<div class="status-class">
+  <span id="status">checking...</span>
+</div>
+
+<br>
+
+    <div class="row clearfix text-center">
+        <div class="col-md-12 column"><br>
+        	
+        	<button class="btn btn-dark big" onClick="delLocalStorage();">Clear LocalStorage</button>
+        	<br>
+        	<div id="delLocalStorageResult"></div>
+        	<br><br>
+        	
+        </div>  <!-- COL -->
+    </div>  <!-- ROW -->
+    
+    <div class="row clearfix text-center">
+        <div class="col-md-12 column"><br>
+        	
+        	<button class="btn btn-dark big" onClick="getSurvSubErr();">Get Survey-Submit Error Message</button>
+        	<br>
+        	<div id="survey-submitERR"></div>
+        	<br><br>
+        	
+        </div>  <!-- COL -->
+    </div>  <!-- ROW -->
+
+
+
+    <div class="row clearfix text-center">
+        <div class="col-md-12 column"><br>
+        	
+        	<button class="btn btn-dark big" onClick="delTiles();">Delete Offline Tile Cache</button>
+        	<br>
+        	<div id="delTilesResult"></div>
+        	<br>
+        	
+        </div>  <!-- COL -->
+    </div>  <!-- ROW -->
+
+
+<script>
+function delLocalStorage(){
+	localStorage.clear();
+	document.getElementById("delLocalStorageResult").innerHTML = "<span style='color:#FF0000'><b>DONE!</b></span>";
+}
+
+function getSurvSubErr(){
+	var SurvSubERROR = localStorage.getItem('SubmitERROR')
+	document.getElementById('survey-submitERR').innerHTML = "<span style='color:#FF0000'><b>" + SurvSubERROR + "</b></span>";
+}
+
+function delTiles() {
+	dbCVTiles.destroy();
+	document.getElementById("delTilesResult").innerHTML = "<span style='color:#FF0000'><b>DONE!</b></span>";
+}
+
+</script>  
+
+</body>
+</html>

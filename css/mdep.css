@@ -1,0 +1,76 @@
+	input[type="date"] {
+    width: 30%;
+    height: 40px;
+<!--    border: 2px solid red; -->
+}
+
+select.TLD {
+    width: 60%;
+    height: 40px;
+}
+
+select {
+    width: 30%;
+    height: 40px;
+}
+
+	input[type="text"] {
+    width: 30%;
+    height: 40px;
+<!--    background-color: #000; -->
+}
+
+	input[type="file"] {
+    width: 35%;
+    height: 40px;
+    text-align: center;
+    vertical-align: 100px;
+    margin: 0 auto;
+<!--    border: 1px solid black; -->
+}
+
+hr {
+	border-width: 5px;
+	width: 80%;
+}
+
+hr.hr30p {
+	border-width: 3px;
+	width: 40%;
+}
+
+hr.hr60p {
+	border-width: 3px;
+	width: 60%;
+}
+
+#status {
+  position: fixed;
+  left: 10px;
+  top: 10px;
+  border: 2px solid #000000;
+  padding: 5px;
+  color: #fff;
+  background: #ccc;
+  z-index: 100;
+}
+
+#status.offline {
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-image: url(../images/noSignal.png);
+  display: block;
+  width: 42px;
+  height: 42px;
+}
+
+#status.online {
+  /*background: #0c0;*/
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-image: url(../images/signal.png);
+  display: block;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;  
+}

@@ -1,0 +1,203 @@
+	input[type="date"] {
+    width: 80%;
+    height: 30px;
+<!--    border: 2px solid red; -->
+}
+
+select {
+    width: 80%;
+    height: 30px;
+}
+
+
+	input[type="file"] {
+    width: 25%;
+    height: 40px;
+    text-align: center;
+    vertical-align: 100px;
+    margin: 0 auto;
+<!--    border: 1px solid black; -->
+}
+
+hr.full {
+	border-width: 5px;
+	width: 80%;
+}
+
+hr.hr30p {
+	border-width: 5px;
+	width: 40%;
+}
+
+#status {
+  position: fixed;
+  right: 15px;
+  top: 20px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  background: #fff;
+  border-radius: 5px;  
+  z-index: 600;
+}
+
+#status.fail {
+  background: #c00;
+}
+
+#status.success {
+  background: #0c0;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-image: url(../images/signal.png);
+  display: block;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;  
+}
+
+#status.offline {
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-image: url(../images/noSignal.png);
+  display: block;
+  width: 42px;
+  height: 42px;
+}
+
+#status.online {
+  /*background: #0c0;*/
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-image: url(../images/signal.png);
+  display: block;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;  
+}
+#map {
+    position: absolute;
+    top: 0px;
+    bottom:0px;
+    left:0px;
+    right:0px;
+	height: 100%;
+	width: 100%;	
+    z-index: -100;
+}  
+#btn-geo {
+  position: fixed;
+  right: 15px;
+  top: 90px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  background: #fff;
+  border-radius: 5px;
+  width: 42px;
+  height: 42px;   
+  z-index: 800;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-image: url(../images/geolocate.png);
+  display: block;   
+  cursor: pointer;  
+}  
+#nButton{
+  z-index:801;
+  position: fixed;
+  right: 15px;
+  top: 160px;    
+}
+#nButtonImg{
+  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  background: #fff;
+  border-radius: 5px;
+  width: 42px;
+  height: 42px;   
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-image: url(../images/north.png);
+  display: block; 
+  cursor: pointer;
+  z-index:800;  
+}    
+#sButton{
+  z-index:801;
+  position: fixed;
+  right: 15px;
+  top: 230px;  
+  padding: 0px;  
+}    
+#sButtonImg{
+  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  background: #fff;
+  border-radius: 5px;
+  width: 42px;
+  height: 42px;   
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-image: url(../images/south.png);
+  display: block;   
+  cursor: pointer;  
+}      
+#search-tooltip{
+  z-index:10000;  
+}    
+#sButton{
+  z-index:900;   
+}    
+.panel-body{
+  background-color: rgba(245, 245, 245, 0.58);
+  position:absolute;
+  right:56px;
+  top:0px;
+} 
+#seed{
+  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  background: #fff;
+  border-radius: 5px;
+  width: 152px;
+  height: 42px;
+  /*background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-image: url(../images/backpack.png);*/  
+  /*position:absolute;
+  right:60px;
+  top:20px;  */
+  cursor: pointer; 
+} 
+#nextTime{
+  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  background: #fff;
+  border-radius: 5px;
+  width: 170px;
+  height: 42px;
+  /*background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-image: url(../images/backpack.png);*/  
+  /*position:absolute;
+  right:60px;
+  top:20px;  */
+  cursor: pointer; 
+}    
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background-color: rgba(245, 245, 245, 0.8);
+  border-radius: 5px;
+  width: 208px;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+#seedStatus {
+ border-color: transparent; 
+ background: transparent;
+ background-color: transparent;
+}    
+.popup .close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}

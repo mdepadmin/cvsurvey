@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CVAG Parcel Survey</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+	
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="css/mdep.css" rel="stylesheet">
+  
+	<script type="text/javascript" src="js/jquery-2.0.0.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/h5utils.js"></script>
+	<script src="js/pouchdb-5.0.0.min.js"></script>
+
+
+</head>
+
+<style> <!-- *** THESE DONT WORK *** ORIGINAL AT BEGINING -->
+	
+
+	
+#container section {
+    background: #f7f8f9;
+}
+#container section.odd {
+    background: #000000;
+}
+	
+#section {
+    background: #f7f8f9;
+}
+#section.odd {
+    background: #000000;
+}
+
+/*  DISTURBANCE  */
+#disturbancetype {display:none;}
+
+#dumpingphotodiv {display:none;}
+
+#erosionphotodiv {display:none;}
+
+#hazmatphotodiv {display:none;}
+
+#stainingphotodiv {display:none;}
+
+/* STRUCTURES */
+#sfoundationphotodiv {display:none;}
+
+#swellphotodiv {display:none;}
+
+#sminephotodiv {display:none;}
+
+#sshaftphotodiv {display:none;}
+
+#spipelinephotodiv {display:none;}
+
+#stransmissionphotodiv {display:none;}
+
+#sfencingphotodiv {display:none;}
+
+#swatertankphotodiv {display:none;}
+
+#sundergroundstoragephotodiv {display:none;}
+
+/* ROADS */
+#roadsphotodiv {display:none;}
+
+/* TRAILS */
+#trailsphotodiv {display:none;}
+
+/* OHV */
+#ohvphotodiv {display:none;}
+
+/* HOMELESS */
+#homelessphotodiv {display:none;}
+
+/* DOGS */
+#dogsphotodiv {display:none;}
+
+/* RAVENS */
+#ravensphotodiv {display:none;}
+
+/* OTHER BIRDS */
+#yumaphotodiv {display:none;}
+
+#calirailphotodiv {display:none;}
+
+#burrowlphotodiv {display:none;}
+
+#swflycatcherphotodiv {display:none;}
+
+#crissalphotodiv {display:none;}
+
+#lecontephotodiv {display:none;}
+
+#leastbellphotodiv {display:none;}
+
+#greyvireophotodiv {display:none;}
+
+#yellowwarblerphotodiv {display:none;}
+
+#yellowbreastedchatphotodiv {display:none;}
+
+#summertanagerphotodiv {display:none;}
+
+/* Insects */
+#sandtreadercricketphotodiv {display:none;}
+
+#jerusalemcricketphotodiv {display:none;}
+
+/* FISH */
+#pupfishphotodiv {display:none;}
+
+/* REPTILES */
+#tortoisephotodiv {display:none;}
+
+#fthlizardphotodiv {display:none;}
+
+#cvftlizardphotodiv {display:none;}
+
+/* BURROWS */
+#burrowsphotodiv {display:none;}
+
+/* OTHER MAMMALS */
+#southernyellowbatphotodiv {display:none;}
+
+#rtgsquirrelphotodiv {display:none;}
+
+#pspringspmousephotodiv {display:none;}
+
+#pbighornsheepphotodiv {display:none;}
+
+#cowbirdsphotodiv {display:none;}
+
+/* PLANTS */
+#meccaasterphotodiv {display:none;}
+
+#orocopiasagephotodiv {display:none;}
+
+#tribbedmilkvetchphotodiv {display:none;}
+
+#cvmilkvetchphotodiv {display:none;}
+
+#lsbmlinanthusphotodiv {display:none;}
+
+/* INVASIVE */
+#saharamustardphotodiv {display:none;}
+
+#schismusgrassphotodiv {display:none;}
+
+#tamarixaphyllaphotodiv {display:none;}
+
+#tamarixramossisimaphotodiv {display:none;}
+
+#fountaingrassphotodiv {display:none;}
+
+#bufflegrassphotodiv {display:none;}
+
+#arundophotodiv {display:none;}
+
+</style>
+
+<body onload="setInputDate;">
+	
+<div class="container-fluid">
+
+<div class="status-class">
+  <span id="status"></span>
+</div>
+
+	<div class="row clearfix text-center">
+		<div class="col-md-12 column"><br>
+
+                    <h3>Parcel Survey</h3>                   
+                    
+		</div>  <!-- COL -->
+	</div>  <!-- ROW -->
+
+<hr>
+
+	<div class="row clearfix text-center" style="background-color: #f2f2f2";>
+		<div class="col-md-12 column"><br>
+			
+                    <label>Date</label><br><input type="date" id="inspdate" name="date"/>
+                    <br><br>
+            
+                    <label>Parcel APN</label><br><input type="text" id="parcelAPN"/>
+                    <br><br>
+                    
+                    <label>Survey Type</label><br>
+                    <select name="survtype" id="survtype">
+                          <option value="select" disabled="disabled" selected="selected">Select Type:</option>
+                    	  <option value="si">Site Inspection</option>
+                    	  <option value="lm">Land Management</option>
+                    </select>
+                    <br><br>
+                    
+                    <label>Inspection Type</label><br>
+                    <select name="insptype" id="insptype">
+                          <option value="select" disabled="disabled" selected="selected">Select Type:</option>
+                    	  <option value="initial">Initial</option>
+                    	  <option value="cleanup">Cleanup</option>
+                    	  <option value="followup">Follow-Up</option>
+                    </select>
+                    <br><br>
+                    
+                    <label>What area of the parcel are you inspecting?</label><br>
+                    <select name="parcelloc" id="parcelloc">
+                          <option value="select" disabled="disabled" selected="selected">Select Area:</option>
+                          <option value="entireparcel">Entire Parcel</option>
+                          <option value="nwcorner">NW Corner</option>
+                          <option value="necorner">NE Corner</option>
+                          <option value="secorner">SE Corner</option>
+                          <option value="swcorner">SW Corner</option>
+                          <option value="nside">Northern Side</option>
+                          <option value="eside">Eastern Side</option>
+                          <option value="sside">Southern Side</option>
+                          <option value="wside">Western Side</option>
+                          <option value="centralarea">Central Area</option>
+                    </select>
+                    <br><br><br>
+
+			
+		</div>  <!-- COL -->
+	</div>  <!-- ROW -->
+	
+	<div class="row clearfix text-center">
+		<div class="col-md-12 column"><br>
+			
+                    <label>Other Surveyor 1</label><br><input type="text"  maxlength="250" id="surveyor01" name="date"/>
+                    <br><br>
+                    <label>Other Surveyor 2</label><br><input type="text"  maxlength="250" id="surveyor02" name="date"/>
+                    <br><br>
+                    <label>Other Surveyor 3</label><br><input type="text"  maxlength="250" id="surveyor03" name="date"/>
+                    <br><br>
+                    <label>Other Surveyor 4</label><br><input type="text"  maxlength="250" id="surveyor04" name="date"/>
+                    <br><br>
+                    <label>Other Surveyor 5</label><br><input type="text"  maxlength="250" id="surveyor05" name="date"/>
+                    <br><br>
+
+
+
+		</div>  <!-- COL -->
+	</div>  <!-- ROW -->
+	
+
+	
+		<div class="row clearfix text-center" style="background-color: #f2f2f2";>
+		<div class="col-xs-12 col-sm-12 col-md-12 column">
+			<br>
+			 <h4>General Photos of Parcel</h4><br>
+
+
+                    <label>North</label><br><input type="file" id="photoparcelN"/>
+                    <br>
+                    	<output id="photoNThumb"></output>
+                    <br>
+                    <hr class="hr30p">
+
+                    
+                    <label>South</label><br><input type="file" id="photoparcelS"/>
+                    <br>
+                    	<output id="photoSThumb"></output>
+                    <br>
+                    <hr class="hr30p">
+                    
+                    <label>East</label><br><input type="file" id="photoparcelE"/>
+                    <br>
+                    	<output id="photoEThumb"></output>
+                    <br>
+                    <hr class="hr30p">
+                    
+                    <label>West</label><br><input type="file" id="photoparcelW"/>
+                    <br>
+                    	<output id="photoWThumb"></output>
+                    <br>
+                    <hr class="hr30p">
+                    
+                    <label>Centroid</label><br><input type="file" id="photoparcelC"/>
+                    <br>
+                    	<output id="photoCThumb"></output>
+                    <br>
+                    <hr class="hr30p">
+			<br>
+			
+		</div>  <!-- COL -->
+	</div>  <!-- ROW -->
+
+
+	<div class="row clearfix text-center">
+		<div class="col-md-12 column"><br>
+				
+             <h4>Disturbance</h4>
+                            
+                    <label>Disturbance On Site?</label><br>
+                    <select name="disturbance" id="disturbance">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+
+                    
+                    <div id="disturbancetype" class="row">
+                        <br>
+                        <h4>What Type of Disturbance?</h4>
+                    <br>
+                    <label>Dumping?</label><br>
+                    <select name="ddumping" id="ddumping">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="dumpingphotodiv">
+                    	<label>Type of Dumping</label><br>
+                        <select name="ddumpingtype" id="ddumpingtype">
+                          <option value="select" disabled="disabled" selected="selected">Select Type:</option>
+                          <option value="housefold">Household</option>
+                          <option value="construction">Construction</option>
+                          <option value="tires">Tires</option>
+                        </select>
+                        <br><br>
+                    	<label>Photo of Dumping:</label><br><input type="file" name="dumpingphoto" id="dumpingphoto" />
+                    	<br>
+                    	<output id="photoDumpingOutput"></output>
+                    	<br>
+                    	</div>
+                    <br><br>
+                    
+                    <label>Soil Erosion?</label><br>
+                    <select name="dsoilerosion" id="dsoilerosion">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="erosionphotodiv"><label>Photo of Soil Erosion:</label><br><input type="file" name="erosionphoto" id="erosionphoto" />
+                    	<br>
+                    	<output id="photoErosionOutput"></output>
+                    	<br>                    	
+                    </div>
+                    <br><br>
+                    
+                    <label>Hazardous Materials?</label><br>
+                    <select name="dhazmat" id="dhazmat">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="hazmatphotodiv"><label>Photo of Hazardous Materials:</label><br><input type="file" name="hazmatphoto" id="hazmatphoto" />
+                    	<br>
+                    	<output id="photoHazmatOutput"></output>
+                    	<br>                      	
+                    </div>
+                    <br><br>  
+                    
+                    <label>Soil Staining?</label><br>
+                    <select name="dsoilstaining" id="dsoilstaining">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="stainingphotodiv">
+                    	<label>Type of Staining</label><br>
+                        <select name="dsoilstainingtype" id="dsoilstainingtype">
+                          <option value="select" disabled="disabled" selected="selected">Select Type:</option>
+                          <option value="oil">Oil</option>
+                          <option value="burn">Burn / Fire</option>
+                          <option value="other">Other</option>
+                        </select>
+                        <br><br>
+                    	<label>Photo of Soil Stain:</label><br><input type="file" name="soilstainingphoto" id="soilstainingphoto" />
+                    	<br>
+                    	<output id="photoSoilStainingOutput"></output>
+                    	<br>                       	
+                    	</div>
+                    <br><br>   
+
+                    </div>
+
+            <br>  
+		</div>  <!-- COL -->
+	</div>  <!-- ROW -->
+
+     <div class="row clearfix text-center" style="background-color: #f2f2f2";>
+        <div class="col-md-12 column">
+        	<br>
+                          <h4>Structures On Site?</h4><br>   
+                
+                    <label>Foundations</label><br>
+                    <select name="sfoundation" id="sfoundation">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="sfoundationphotodiv"><label>Photo of Foundation:</label><br><input type="file" name="sfoundationphoto" id="sfoundationphoto" />
+                    	<br>
+                    	<output id="photoFoundationOutput"></output>
+                    	<br>                     	
+                    </div>
+                    <br><br>
+                                    
+                    <label>Wells</label><br>
+                    <select name="swell" id="swell">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="swellphotodiv"><label>Photo of Well:</label><br><input type="file" name="swellphoto" id="swellphoto" />
+                    	<br>
+                    	<output id="photoWellOutput"></output>
+                    	<br>    
+                    </div>
+                    <br><br>         
+                                             
+                    <label>Mines</label><br>
+                    <select name="smine" id="smine">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="sminephotodiv"><label>Photo of Mine:</label><br><input type="file" name="sminephoto" id="sminephoto" />
+                    	<br>
+                    	<output id="photoMineOutput"></output>
+                    	<br>                      	
+                    </div>
+                    <br><br>
+                                                                 
+                    <label>Shafts</label><br>
+                    <select name="sshaft" id="sshaft">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="sshaftphotodiv"><label>Photo of Shaft:</label><br><input type="file" name="sshaftphoto" id="sshaftphoto" />
+                    	<br>
+                    	<output id="photoShaftOutput"></output>
+                    	<br>                     	
+                    </div>
+                    <br><br>
+                                             
+                    <label>Pipelines</label><br>
+                    <select name="spipeline" id="spipeline">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="spipelinephotodiv"><label>Photo of Pipeline:</label><br><input type="file" name="spipelinephoto" id="spipelinephoto" />
+                    	<br>
+                    	<output id="photoPipelineOutput"></output>
+                    	<br>                       	
+                    </div>
+                    <br><br>
+                                                        
+                    <label>Transmission Lines</label><br>
+                    <select name="stransmission" id="stransmission">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="stransmissionphotodiv"><label>Photo of Tranismission Lines:</label><br><input type="file" name="stransmissionphoto" id="stransmissionphoto" />
+                    	<br>
+                    	<output id="photoTransmissionOutput"></output>
+                    	<br>                     	
+                    </div>
+                    <br><br>
+                             
+                                             
+                    <label>Fencing</label><br>
+                    <select name="sfencing" id="sfencing">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="sfencingphotodiv">
+                    	<label>Fencing Need Repair?</label><br>
+                    	<select name="sfencingrepair" id="sfencingrepair">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    	</select>
+                    	<br><br>
+                    	<label>Photo of Fencing:</label><br><input type="file" name="sfencingphoto" id="sfencingphoto" />
+                    	<br>
+                    	<output id="photoFencingOutput"></output>
+                    	<br>
+                    	</div>
+                    <br><br>
+                                                                 
+                    <label>Water Tanks</label><br>
+                    <select name="swatertank" id="swatertank">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="swatertankphotodiv"><label>Photo of Water Tank:</label><br><input type="file" name="swatertankphoto" id="swatertankphoto" />
+                    	<br>
+                    	<output id="photoWatertankOutput"></output>
+                    	<br>
+						</div>
+                    <br><br>
+                                             
+                    <label>Underground Storage Tanks</label><br>
+                    <select name="sundergroundstorage" id="sundergroundstorage">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="sundergroundstoragephotodiv"><label>Photo of Underground Storage:</label><br><input type="file" name="sundergroundstoragephoto" id="sundergroundstoragephoto" />
+                    	<br>
+                    	<output id="photoUndergroundstorageOutput"></output>
+                    	<br>                    	
+                    </div>
+                    <br><br>
+
+        </div>  <!-- COL -->
+    </div>  <!-- ROW -->
+
+	<div class="row clearfix text-center">
+		<div class="col-md-12 column"><br>
+			    	
+                    <label>Road(s) on Site?</label><br>
+                    <select name="roadsdiv" id="roadsdiv">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="roadsphotodiv">
+                    <label>If Yes, Amount of Road Coverage</label><br>
+                    <select name="roadscoverage" id="roadscoverage">
+                          <option value="0" selected disabled>Select Coverage:</option>
+                          <option value="1">Less than 1/3</option>
+                          <option value="2">Between 1/3 and 2/3</option>
+                          <option value="3">More than 2/3</option>
+                    </select>
+                    <br><br>
+                        <label>Photo of Roads:</label><br><input type="file" name="roadsphoto" id="roadsphoto" />
+                    	<br>
+                    	<output id="photoRoadsOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>    
+            
+		</div>  <!-- COL -->
+	</div>  <!-- ROW -->
+
+    <div class="row clearfix text-center" style="background-color: #f2f2f2";>
+        <div class="col-md-12 column"><br> 
+                    
+                    <label>Trail(s) on Site?</label><br>
+                    <select name="trailsdiv" id="trailsdiv">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="trailsphotodiv">
+                        <label>Photo of Trails:</label><br><input type="file" name="trailsphoto" id="trailsphoto" />
+                        <br>
+                    	<output id="photoTrailsOutput"></output>
+                    	<br>  
+                    </div>
+                    <br><br>    
+            
+        </div>  <!-- COL -->
+    </div>  <!-- ROW -->
+
+    <div class="row clearfix text-center">
+        <div class="col-md-12 column"><br> 
+                    
+                    <label>OHV Use on Site?</label><br>
+                    <select name="ohvdiv" id="ohvdiv">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="ohvphotodiv">
+                    <label>Amount of OHV Use</label><br>
+                    <select name="ohvuse" id="ohvuse">
+                          <option value="0" selected disabled>Select:</option>
+                          <option value="1">Low</option>
+                          <option value="2">Medium</option>
+                          <option value="3">High</option>
+                    </select>
+                    <br><br>
+                        <label>Photo:</label><br><input type="file" name="ohvphoto" id="ohvphoto" />
+                        <br>
+                    	<output id="photoOhvOutput"></output>
+                    	<br>                         
+                    </div>
+                    <br><br>    
+            
+         </div>  <!-- COL -->
+    </div>  <!-- ROW -->
+
+    <div class="row clearfix text-center" style="background-color: #f2f2f2";>
+        <div class="col-md-12 column"><br>
+                    
+                    <label>Homeless Encampment(s) on Site?</label><br>
+                    <select name="homelessdiv" id="homelessdiv">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="homelessphotodiv">
+                        <label>Photo:</label><br><input type="file" name="homelessphoto" id="homelessphoto" />
+                        <br>
+                    	<output id="photoHomelessOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>    
+
+        </div>  <!-- COL -->
+    </div>  <!-- ROW -->
+
+    <div class="row clearfix text-center">
+        <div class="col-md-12 column"><br> 
+                    
+                    <label>Feral Dog(s) on Site?</label><br>
+                    <select name="dogs" id="dogs">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="dogsphotodiv">
+                        <label>Photo:</label><br><input type="file" name="dogsphoto" id="dogsphoto" />
+                        <br>
+                    	<output id="photoDogsOutput"></output>
+                    	<br>                        
+                    </div>
+                    <br><br>    
+
+        </div>  <!-- COL -->
+    </div>  <!-- ROW -->
+
+    <div class="row clearfix text-center" style="background-color: #f2f2f2";>
+        <div class="col-md-12 column"><br>
+ 
+                    <label>Ravens on Site?</label><br>
+                    <select name="ravens" id="ravens">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="ravensphotodiv">
+                        <label>Photo:</label><br><input type="file" name="ravensphoto" id="ravensphoto" />
+                        <br>
+                    	<output id="photoRavensOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>    
+            
+        </div>  <!-- COL -->
+    </div>  <!-- ROW -->
+
+    <div class="row clearfix text-center">
+        <div class="col-md-12 column"><br>
+ 
+                    <h4>Other Birds on Site?</h4>
+                    <br>
+                    
+                    <label>Yuma Ridgeway's Rail</label><br>
+                    <select name="yuma" id="yuma">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="yumaphotodiv">
+                        <label>Photo:</label><br><input type="file" name="yumaphoto" id="yumaphoto" />
+                        <br>
+                    	<output id="photoYumaOutput"></output>
+                    	<br>                         
+                    </div>
+                    <br><br>
+                    
+                    <label>California Black Rail</label><br>
+                    <select name="calirail" id="calirail">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="calirailphotodiv">
+                        <label>Photo:</label><br><input type="file" name="calirailphoto" id="calirailphoto" />
+                        <br>
+                    	<output id="photoCalirailOutput"></output>
+                    	<br>                         
+                    </div>
+                    <br><br>      
+                    
+                    <label>Burrowing Owl</label><br>
+                    <select name="burrowl" id="burrowl">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="burrowlphotodiv">
+                        <label>Photo:</label><br><input type="file" name="burrowlphoto" id="burrowlphoto" />
+                        <br>
+                    	<output id="photoBurrowlOutput"></output>
+                    	<br>                           
+                    </div>
+                    <br><br>  
+                                        
+                    <label>Southwestern Willow Flycatcher</label><br>
+                    <select name="swflycatcher" id="swflycatcher">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="swflycatcherphotodiv">
+                        <label>Photo:</label><br><input type="file" name="swflycatcherphoto" id="swflycatcherphoto" />
+                        <br>
+                    	<output id="photoSwflycatcherOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>  
+                    
+                    <label>Crissal Thrasher</label><br>
+                    <select name="crissal" id="crissal">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="crissalphotodiv">
+                        <label>Photo:</label><br><input type="file" name="scrissalphoto" id="crissalphoto" />
+                        <br>
+                    	<output id="photoCrissalOutput"></output>
+                    	<br>                           
+                    </div>
+                    <br><br>  
+                    
+                    <label>LeConte's Thrasher</label><br>
+                    <select name="leconte" id="leconte">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="lecontephotodiv">
+                        <label>Photo:</label><br><input type="file" name="lecontephoto" id="lecontephoto" />
+                        <br>
+                    	<output id="photoLeconteOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>
+                    
+                    <label>Least Bell's Vireo</label><br>
+                    <select name="leastbell" id="leastbell">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="leastbellphotodiv">
+                        <label>Photo:</label><br><input type="file" name="leastbellphoto" id="leastbellphoto" />
+                        <br>
+                    	<output id="photoLeastbellOutput"></output>
+                    	<br>                           
+                    </div>
+                    <br><br>
+                    
+                    <label>Grey Vireo</label><br>
+                    <select name="greyvireo" id="greyvireo">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="greyvireophotodiv">
+                        <label>Photo:</label><br><input type="file" name="greyvireophoto" id="greyvireophoto" />
+                        <br>
+                    	<output id="photoGreyvireoOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>
+                    
+                    <label>Yellow Warbler</label><br>
+                    <select name="yellowwarbler" id="yellowwarbler">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="yellowwarblerphotodiv">
+                        <label>Photo:</label><br><input type="file" name="yellowwarblerphoto" id="yellowwarblerphoto" />
+                        <br>
+                    	<output id="photoYellowwarblerOutput"></output>
+                    	<br>                           
+                    </div>
+                    <br><br>
+                    
+                    <label>Yellow Breasted Chat</label><br>
+                    <select name="yellowbreastedchat" id="yellowbreastedchat">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="yellowbreastedchatphotodiv">
+                        <label>Photo:</label><br><input type="file" name="yellowbreastedchatphoto" id="yellowbreastedchatphoto" />
+                        <br>
+                    	<output id="photoYellowbreastedchatOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>
+                    
+                    <label>Summer Tanager</label><br>
+                    <select name="summertanager" id="summertanager">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="summertanagerphotodiv">
+                        <label>Photo:</label><br><input type="file" name="summertanagerphoto" id="summertanagerphoto" />
+                        <br>
+                    	<output id="photoSummertanagerOutput"></output>
+                    	<br>  
+                    </div>
+                    <br><br>
+            
+        </div>  <!-- COL -->
+    </div>  <!-- ROW -->
+
+    <div class="row clearfix text-center" style="background-color: #f2f2f2";>
+        <div class="col-md-12 column"><br>
+            
+            <!-- <form role="form" METHOD="post" ACTION="si08_trails.php" enctype="multipart/form-data"> -->    
+                    <h4>Insects on Site?</h4>
+                    	
+                    <label>CV Giant Sand Treader Cricket</label><br>
+                    <select name="sandtreadercricket" id="sandtreadercricket">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="sandtreadercricketphotodiv">
+                    <label>Sighting?</label><br>
+                    <select name="sandtreadercricketsighting" id="sandtreadercricketsighting">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <label>Burrow?</label><br>
+                    <select name="sandtreadercricketburrow" id="sandtreadercricketburrow">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                        <label>Photo:</label><br><input type="file" name="sandtreadercricketphoto" id="sandtreadercricketphoto" />
+                        <br>
+                    	<output id="photoSandtreadercricketOutput"></output>
+                    	<br>                      
+                    </div>
+                    <br><br>   
+                    
+                    <label>CV Jerusalem Cricket</label><br>
+                    <select name="jerusalemcricket" id="jerusalemcricket">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="jerusalemcricketphotodiv">
+                    <br><br>
+                        <label>Photo:</label><br><input type="file" name="jerusalemcricketphoto" id="jerusalemcricketphoto" />
+                        <br>
+                    	<output id="photoJerusalemcricketOutput"></output>
+                    	<br>                      
+                    </div>
+                    <br><br> 
+            
+        </div>  <!-- COL -->
+    </div>  <!-- ROW -->
+
+    <div class="row clearfix text-center">
+        <div class="col-md-12 column"><br>
+               
+                    <h4>Fish on Site?</h4>
+                    
+                    <label>Desert Pupfish</label><br>
+                    <select name="pupfish" id="pupfish">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="pupfishphotodiv">
+                        <label>Photo:</label><br><input type="file" name="pupfishphoto" id="pupfishphoto" />
+                        <br>
+                    	<output id="photoPupfishOutput"></output>
+                    	<br>                         
+                    </div>
+                    <br><br>    
+            
+        </div>  <!-- COL -->
+    </div>  <!-- ROW -->              
+
+
+    <div class="row clearfix text-center" style="background-color: #f2f2f2";>
+        <div class="col-md-12 column"><br>
+            
+                    <h4>Reptiles on Site?</h4>
+                    
+                    <label>Desert Tortoise</label><br>
+                    <select name="tortoise" id="tortoise">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="tortoisephotodiv">
+                        <label>Photo:</label><br><input type="file" name="tortoisephoto" id="tortoisephoto" />
+                        <br>
+                    	<output id="photoTortoiseOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>    
+                    
+                    <label>Flat-tailed Horned Lizard</label><br>
+                    <select name="fthlizard" id="fthlizard">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="fthlizardphotodiv">
+                        <label>Photo:</label><br><input type="file" name="fthlizardphoto" id="fthlizardphoto" />
+                        <br>
+                    	<output id="photoFthlizardOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>  
+                    
+                    <label>CV Fringe-toed Lizard</label><br>
+                    <select name="cvftlizard" id="cvftlizard">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="cvftlizardphotodiv">
+                        <label>Photo:</label><br><input type="file" name="cvftlizardphoto" id="cvftlizardphoto" />
+                        <br>
+                    	<output id="photoCvftlizardOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>  
+            
+        </div>  <!-- COL -->
+    </div>  <!-- ROW -->
+
+    <div class="row clearfix text-center">
+        <div class="col-md-12 column"><br>
+                    
+                    <label>Burrows on Site?</label><br>
+                    <select name="burrows" id="burrows">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="burrowsphotodiv">
+                        <label>Photo:</label><br><input type="file" name="burrowsphoto" id="burrowsphoto" />
+                        <br>
+                    	<output id="photoBurrowsOutput"></output>
+                    	<br>                         
+                    </div>
+                    <br><br>    
+            
+        </div>  <!-- COL -->
+    </div>  <!-- ROW -->
+
+    <div class="row clearfix text-center" style="background-color: #f2f2f2";>
+        <div class="col-md-12 column"><br>
+ 
+                    <h4>Other Mammals on Site?</h4>
+                    <br>
+                    
+                    <label>Southern Yellow Bat</label><br>
+                    <select name="southernyellowbat" id="southernyellowbat">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="southernyellowbatphotodiv">
+                        <label>Photo:</label><br><input type="file" name="rsouthernyellowbatphoto" id="southernyellowbatphoto" />
+                        <br>
+                    	<output id="photoSouthernyellowbatOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>    
+                    
+                    <label>Round-tailed Ground Squirrel</label><br>
+                    <select name="rtgsquirrel" id="rtgsquirrel">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="rtgsquirrelphotodiv">
+                        <label>Photo:</label><br><input type="file" name="rtgsquirrelphoto" id="rtgsquirrelphoto" />
+                        <br>
+                    	<output id="photoRtgsquirrelOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>  
+                    
+                    <label>Palm Springs Pocket Mouse</label><br>
+                    <select name="pspringspmouse" id="pspringspmouse">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="pspringspmousephotodiv">
+                        <label>Photo:</label><br><input type="file" name="pspringspmousephoto" id="pspringspmousephoto" />
+                        <br>
+                    	<output id="photoPspringspmouseOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>  
+                    
+                    <label>Peninsular Bighorn Sheep</label><br>
+                    <select name="pbighornsheep" id="pbighornsheep">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="pbighornsheepphotodiv">
+                        <label>Photo:</label><br><input type="file" name="pbighornsheepphoto" id="pbighornsheepphoto" />
+                        <br>
+                    	<output id="photoPbighornsheepOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>  
+                    
+                    <label>Cowbirds</label><br>
+                    <select name="cowbirds" id="cowbirds">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="cowbirdsphotodiv">
+                        <label>Photo:</label><br><input type="file" name="cowbirdsphoto" id="cowbirdsphoto" />
+                        <br>
+                    	<output id="photoCowbirdsOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>  
+            
+        </div>  <!-- COL -->
+    </div>  <!-- ROW -->
+
+    <div class="row clearfix text-center">
+        <div class="col-md-12 column"><br>
+            
+                    <h4>Plants on Site?</h4>
+                    <br>
+                    
+                    <label>Mecca Aster</label><br>
+                    <select name="meccaaster" id="meccaaster">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="meccaasterphotodiv">
+                        <label>Photo:</label><br><input type="file" name="meccaasterphoto" id="meccaasterphoto" />
+                        <br>
+                    	<output id="photoMeccaasterOutput"></output>
+                    	<br>                         
+                    </div>
+                    <br><br>    
+                    
+                    <label>Orocopia Sage</label><br>
+                    <select name="orocopiasage" id="orocopiasage">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="orocopiasagephotodiv">
+                        <label>Photo:</label><br><input type="file" name="orocopiasagephoto" id="orocopiasagephoto" />
+                        <br>
+                    	<output id="photoOrocopiasageOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>  
+                    
+                    <label>Triple-Ribbed Milkvetch</label><br>
+                    <select name="tribbedmilkvetch" id="tribbedmilkvetch">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="tribbedmilkvetchphotodiv">
+                        <label>Photo:</label><br><input type="file" name="tribbedmilkvetchphoto" id="tribbedmilkvetchphoto" />
+                        <br>
+                    	<output id="photoTribbedmilkvetchOutput"></output>
+                    	<br>                           
+                    </div>
+                    <br><br>  
+                    
+                    <label>CV Milkvetch</label><br>
+                    <select name="cvmilkvetch" id="cvmilkvetch">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="cvmilkvetchphotodiv">
+                        <label>Photo:</label><br><input type="file" name="cvmilkvetchphoto" id="cvmilkvetchphoto" />
+                        <br>
+                    	<output id="photoCvmilkvetchOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>  
+                    
+                    <label>Little San Bernardio Mountains Linanthus</label><br>
+                    <select name="lsbmlinanthus" id="lsbmlinanthus">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="lsbmlinanthusphotodiv">
+                        <label>Photo:</label><br><input type="file" name="lsbmlinanthusphoto" id="lsbmlinanthusphoto" />
+                        <br>
+                    	<output id="photoLsbmlinanthusOutput"></output>
+                    	<br>                           
+                    </div>
+                    <br><br>                      
+            
+        </div>  <!-- COL -->
+    </div>  <!-- ROW -->
+
+    <div class="row clearfix text-center" style="background-color: #f2f2f2";>
+        <div class="col-md-12 column"><br>
+            
+                    <h4>Invasive Species on Site?</h4>
+                    
+                    <label>Sahara Mustard</label><br>
+                    <select name="saharamustard" id="saharamustard">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="saharamustardphotodiv">
+                        <label>% Coverage&nbsp;</label><input type="number" id="saharamustardcoverage" min="0" max="100" step="25" value="0">
+                        <br><br> 
+                        <input type="checkbox" id="saharamustardcontrol">Control Needed
+                        <br><br>
+                        <label>Photo:</label><br><input type="file" name="saharamustardphoto" id="saharamustardphoto" />
+                        <br>
+                    	<output id="photoSaharamustardOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>    
+                    
+                    <label>Schismus Grass</label><br>
+                    <select name="schismusgrass" id="schismusgrass">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="schismusgrassphotodiv">
+                        <label>% Coverage&nbsp;</label><input type="number" id="schismusgrasscoverage" min="0" max="100" step="25" value="0">
+                        <br><br> 
+                        <input type="checkbox" id="schismusgrasscontrol">Control Needed
+                        <br><br>
+                        <label>Photo:</label><br><input type="file" name="schismusgrassphoto" id="schismusgrassphoto" />
+                        <br>
+                    	<output id="photoSchismusgrassOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>  
+                    
+                    <label>Tamarix Aphylla (tree)</label><br>
+                    <select name="tamarixaphylla" id="tamarixaphylla">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="tamarixaphyllaphotodiv">
+                        <label>% Coverage&nbsp;</label><input type="number" id="tamarixaphyllacoverage" min="0" max="100" step="25" value="0">
+                        <br><br> 
+                        <input type="checkbox" id="tamarixaphyllacontrol">Control Needed
+                        <br><br>
+                        <label>Photo:</label><br><input type="file" name="tamarixaphyllaphoto" id="tamarixaphyllaphoto" />
+                        <br>
+                    	<output id="photoTamarixaphyllaOutput"></output>
+                    	<br>                            
+                    </div>
+                    <br><br>    
+                    
+                    <label>Tamarix Ramossisima</label><br>
+                    <select name="tamarixramossisima" id="tamarixramossisima">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="tamarixramossisimaphotodiv">
+                        <label>% Coverage&nbsp;</label><input type="number" id="tamarixramossisimacoverage" min="0" max="100" step="25" value="0">
+                        <br><br> 
+                        <input type="checkbox" id="tamarixramossisimacontrol">Control Needed
+                        <br><br>
+                        <label>Photo:</label><br><input type="file" name="tamarixramossisimaphoto" id="tamarixramossisimaphoto" />
+                        <br>
+                    	<output id="photoTamarixramossisimaOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>   
+                    
+                    <label>Fountain Grass</label><br>
+                    <select name="fountaingrass" id="fountaingrass">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="fountaingrassphotodiv">
+                        <label>% Coverage&nbsp;</label><input type="number" id="fountaingrasscoverage" min="0" max="100" step="25" value="0">
+                        <br><br> 
+                        <input type="checkbox" id="fountaingrasscontrol">Control Needed
+                        <br><br>
+                        <label>Photo:</label><br><input type="file" name="fountaingrassphoto" id="fountaingrassphoto" />
+                        <br>
+                    	<output id="photoFountaingrassOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>      
+                    
+                    <label>Bufflegrass</label><br>
+                    <select name="bufflegrass" id="bufflegrass">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="bufflegrassphotodiv">
+                        <label>% Coverage&nbsp;</label><input type="number" id="bufflegrasscoverage" min="0" max="100" step="25" value="0">
+                        <br><br> 
+                        <input type="checkbox" id="bufflegrasscontrol">Control Needed
+                        <br><br>
+                        <label>Photo:</label><br><input type="file" name="bufflegrassphoto" id="bufflegrassphoto" />
+                        <br>
+                    	<output id="photoBufflegrassOutput"></output>
+                    	<br>                          
+                    </div>
+                    <br><br>  
+                    
+                    <label>Arundo</label><br>
+                    <select name="arundo" id="arundo">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>
+                    <div id="arundophotodiv">
+                        <label>% Coverage&nbsp;</label><input type="number" id="arundocoverage" min="0" max="100" step="25" value="0">
+                        <br><br> 
+                        <input type="checkbox" id="arundocontrol">Control Needed
+                        <br><br>
+                        <label>Photo:</label><br><input type="file" name="arundophoto" id="arundophoto" />
+                        <br>
+                    	<output id="photoArundoOutput"></output>
+                    	<br>                           
+                    </div>
+                    <br><br>                    
+            
+        </div>  <!-- COL -->
+    </div>  <!-- ROW -->
+
+    <div class="row clearfix text-center">
+        <div class="col-md-12 column"><br>
+            
+            <h4>Limit Access to Site?</h4>   
+                    
+                    <label>Fencing</label><br>
+                    <select name="fencing" id="fencing">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br>  
+                    
+                    <label>Boulders</label><br>
+                    <select name="boulders" id="boulders">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br> 
+                    
+                    <label>Gate</label><br>
+                    <select name="gate" id="gate">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br> 
+                    
+                    <label>Road Block</label><br>
+                    <select name="roadblock" id="roadblock">
+                          <option value="1">Yes</option>
+                          <option value="0" selected>No</option>
+                    </select>
+                    <br><br> 
+            <br>
+        </div>  <!-- COL -->
+    </div>  <!-- ROW -->
+
+    <div class="row clearfix text-center" style="background-color: #f2f2f2";>
+        <div class="col-md-12 column"><br>
+
+                    <label>Additional Comments</label><br>
+                    <input type="text" maxlength="250" id="comments">
+                    <br><br>
+                    
+                    <p>(250 Character Limit)</p>
+        </div>  <!-- COL -->
+    </div>  <!-- ROW -->                    
+                    
+    <div class="row clearfix text-center">
+        <div class="col-md-12 column"><br><br>
+
+            <button class="btn btn-dark big" onClick="history.go(-1);return true;">BACK</button>
+                                         
+            <button class="btn btn-dark big" onClick="savelocal();">NEXT</button>
+            
+            <br><br>
+        </div>  <!-- COL -->
+    </div>  <!-- ROW -->
+				
+</div>  <!-- CONT -->
+
+<script>
+
+function setInputDate(_id){
+    var _dat = document.querySelector(_id);
+    var hoy = new Date(),
+        d = hoy.getDate(),
+        m = hoy.getMonth()+1, 
+        y = hoy.getFullYear(),
+        data;
+
+    if(d < 10){
+        d = "0"+d;
+    };
+    if(m < 10){
+        m = "0"+m;
+    };
+
+    data = y+"-"+m+"-"+d;
+    console.log(data);
+    _dat.value = data;
+};
+
+setInputDate("#inspdate");
+    
+var ParcelAPN = localStorage.getItem('APN');
+console.log(ParcelAPN);
+document.getElementById('parcelAPN').value = ParcelAPN; 
+
+var UserID = localStorage.getItem('UID');
+   
+var dbCVSurveys = new PouchDB('dbCVSurveys');
+
+var remoteCouch = 'http://cvagd.mojavedata.gov:5984/cvsurvey';
+var syncDom = document.getElementById('sync-wrapper');
+
+if (remoteCouch) {
+    sync();
+}
+ 
+ function sync() {
+//  syncDom.setAttribute('data-sync-state', 'syncing');
+  var opts = {live: true, retry: true};
+  dbCVSurveys.replicate.to(remoteCouch, opts, function callback(err, result) {
+    if (!err) {
+      window.alert('Successfully saved record!');
+      console.log('Successfully saved record!');
+//      localStorage.clear();
+    }
+    if (err) {
+    	console.log(err);
+    }
+  });
+}
+
+function syncError() {
+    syncDom.setAttribute('data-sync-state', 'error');
+}
+  
+function savelocal() {
+
+		var inspdatevalue = document.getElementById("inspdate").value;
+		var survtypevalue = document.getElementById("survtype").value;
+		var insptypevalue = document.getElementById("insptype").value;
+		var parcellocvalue = document.getElementById("parcelloc").value;
+		
+		var surveyor01value = document.getElementById("surveyor01").value;
+		var surveyor02value = document.getElementById("surveyor02").value;
+		var surveyor03value = document.getElementById("surveyor03").value;
+		var surveyor04value = document.getElementById("surveyor04").value;
+		var surveyor05value = document.getElementById("surveyor05").value;
+		
+		var photoparcelNvalue = parcelPhotoNORTH;
+        var photoparcelSvalue = parcelPhotoSOUTH;
+        var photoparcelEvalue = parcelPhotoEAST;
+        var photoparcelWvalue = parcelPhotoWEST;
+        var photoparcelCvalue = parcelPhotoCENTROID;
+        
+        var disturbancevalue = document.getElementById("disturbance").value;
+        var dumpingvalue = document.getElementById("ddumping").value;
+        var dumpingtypevalue = document.getElementById("ddumpingtype").value;
+        var soilerosionvalue = document.getElementById("dsoilerosion").value;
+        var hazmatvalue = document.getElementById("dhazmat").value;
+        var soilstainingvalue = document.getElementById("dsoilstaining").value;
+        var soilstainingtypevalue = document.getElementById("dsoilstainingtype").value;
+        
+        var sfoundationvalue = document.getElementById("sfoundation").value;
+        var swellvalue = document.getElementById("swell").value;
+        var sminevalue = document.getElementById("smine").value;
+        var sshaftvalue = document.getElementById("sshaft").value;
+        var spipelinevalue = document.getElementById("spipeline").value;
+        var stransmissionvalue = document.getElementById("stransmission").value;
+        var sfencingvalue = document.getElementById("sfencing").value;
+        var sfencingrepairvalue = document.getElementById("sfencingrepair").value;
+        var swatertankvalue = document.getElementById("swatertank").value;
+        var sundergroundstoragevalue = document.getElementById("sundergroundstorage").value;
+        
+        var roadsvalue = document.getElementById("roadsdiv").value;
+        var roadscoveragevalue = document.getElementById("roadscoverage").value;
+        
+        var trailsvalue = document.getElementById("trailsdiv").value;
+        
+        var ohvvalue = document.getElementById("ohvdiv").value;
+        var ohvusevalue = document.getElementById("ohvuse").value;
+        
+        var homelessvalue = document.getElementById("homelessdiv").value;
+        
+        var dogsvalue = document.getElementById("dogs").value;
+        
+        var ravensvalue = document.getElementById("ravens").value;
+        
+        var yumavalue = document.getElementById("yuma").value;
+        var calirailvalue = document.getElementById("calirail").value;
+        var burrowlvalue = document.getElementById("burrowl").value;
+        var swflycatchervalue = document.getElementById("swflycatcher").value;
+        var crissalvalue = document.getElementById("crissal").value;
+        var lecontevalue = document.getElementById("leconte").value;
+        var leastbellvalue = document.getElementById("leastbell").value;
+        var greyvireovalue = document.getElementById("greyvireo").value;
+        var yellowwarblervalue = document.getElementById("yellowwarbler").value;
+        var yellowbreastedchatvalue = document.getElementById("yellowbreastedchat").value;
+        var summertanagervalue = document.getElementById("summertanager").value;
+        
+        var sandtreadercricketvalue = document.getElementById("sandtreadercricket").value;
+        var sandtreadercricketsightingvalue = document.getElementById("sandtreadercricketsighting").value;
+        var sandtreadercricketburrowvalue = document.getElementById("sandtreadercricketburrow").value;
+        var jerusalemcricketvalue = document.getElementById("jerusalemcricket").value;
+        
+        var pupfishvalue = document.getElementById("pupfish").value;
+        
+        var tortoisevalue = document.getElementById("tortoise").value;
+        var fthlizardvalue = document.getElementById("fthlizard").value;
+        var cvftlizardvalue = document.getElementById("cvftlizard").value;
+        
+        var burrowsvalue = document.getElementById("burrows").value;
+        
+        var southernyellowbatvalue = document.getElementById("southernyellowbat").value;
+        var rtgsquirrelvalue = document.getElementById("rtgsquirrel").value;
+        var pspringspmousevalue = document.getElementById("pspringspmouse").value;
+        var pbighornsheepvalue = document.getElementById("pbighornsheep").value;
+        var cowbirdsvalue = document.getElementById("cowbirds").value;
+        
+        var meccaastervalue = document.getElementById("meccaaster").value;
+        var orocopiasagevalue = document.getElementById("orocopiasage").value;
+        var tribbedmilkvetchvalue = document.getElementById("tribbedmilkvetch").value;
+        var cvmilkvetchvalue = document.getElementById("cvmilkvetch").value;
+        var lsbmlinanthusvalue = document.getElementById("lsbmlinanthus").value;
+        
+        var saharamustardvalue = document.getElementById("saharamustard").value;
+        var saharamustardcoveragevalue = document.getElementById("saharamustardcoverage").value;
+        var saharamustardcontrolvalue = document.getElementById("saharamustardcontrol").checked;
+        var schismusgrassvalue = document.getElementById("schismusgrass").value;
+        var schismusgrasscoveragevalue = document.getElementById("schismusgrasscoverage").value;
+        var schismusgrasscontrolvalue = document.getElementById("schismusgrasscontrol").checked;
+        var tamarixaphyllavalue = document.getElementById("tamarixaphylla").value;
+        var tamarixaphyllacoveragevalue = document.getElementById("tamarixaphyllacoverage").value;
+        var tamarixaphyllacontrolvalue = document.getElementById("tamarixaphyllacontrol").checked;
+        var tamarixramossisimavalue = document.getElementById("tamarixramossisima").value;
+        var tamarixramossisimacoveragevalue = document.getElementById("tamarixramossisimacoverage").value;
+        var tamarixramossisimacontrolvalue = document.getElementById("tamarixramossisimacontrol").checked;
+        var fountaingrassvalue = document.getElementById("fountaingrass").value;
+        var fountaingrasscoveragevalue = document.getElementById("fountaingrasscoverage").value;
+        var fountaingrasscontrolvalue = document.getElementById("fountaingrasscontrol").checked;
+        var bufflegrassvalue = document.getElementById("bufflegrass").value;
+        var bufflegrasscoveragevalue = document.getElementById("bufflegrasscoverage").value;
+        var bufflegrasscontrolvalue = document.getElementById("bufflegrasscontrol").checked;
+        var arundovalue = document.getElementById("arundo").value;
+        var arundocoveragevalue = document.getElementById("arundocoverage").value;
+        var arundocontrolvalue = document.getElementById("arundocontrol").checked;
+        
+        var accessfencingvalue = document.getElementById("fencing").value;
+        var bouldersvalue = document.getElementById("boulders").value;
+        var gatevalue = document.getElementById("gate").value;
+        var roadblockvalue = document.getElementById("roadblock").value;
+        
+        var commentsvalue = document.getElementById("comments").value;
+
+
+/*
+		if (survtypevalue == "select") {window.alert("You must select the type of Survey.");
+        return;};
+		
+		if (insptypevalue == "select") {window.alert("You must select the type of Inspection.");
+        return;};
+		
+		if (parcellocvalue == "select") {window.alert("You must select the area of the parcel you are inspecting.");
+		return;};
+*/		
+		
+		
+//			function savetoDB() {	
+	 var survey = {
+		_id: new Date().toISOString(),
+		inspdate:inspdatevalue,
+		apn:ParcelAPN,
+		uid:UserID,
+		survtype:survtypevalue,
+		insptype:insptypevalue,
+		parcelloc:parcellocvalue,
+		othersurveyor01:surveyor01value,
+		othersurveyor02:surveyor02value,
+		othersurveyor03:surveyor03value,
+		othersurveyor04:surveyor04value,
+		othersurveyor05:surveyor05value,
+		photoN:photoparcelNvalue,
+		photoS:photoparcelSvalue,
+		photoE:photoparcelEvalue,
+		photoW:photoparcelWvalue,
+		photoC:photoparcelCvalue,
+		disturbance:disturbancevalue,
+		dumping:dumpingvalue,
+		dumpingtype:dumpingtypevalue,
+		dumpingPhoto:disturbancePhotoDUMPING,
+		soilerosion:soilerosionvalue,
+		soilerosionPhoto:disturbancePhotoEROSION,
+		hazmat:hazmatvalue,
+		hazmatPhoto:disturbancePhotoHAZMAT,
+		soilstaining:soilstainingvalue,
+		soilstainingtype:soilstainingtypevalue,
+		soilstainingPhoto:disturbancePhotoSOILSTAINING,
+		foundation:sfoundationvalue,
+		foundationPhoto:photoFOUNDATION,
+		well:swellvalue,
+		wellPhoto:photoWELL,
+		mine:sminevalue,
+		minePhoto:photoMINE,
+		shaft:sshaftvalue,
+		shaftPhoto:photoSHAFT,
+		pipeline:spipelinevalue,
+		pipelinePhoto:photoPIPELINE,
+		transmission:stransmissionvalue,
+		transmissionPhoto:photoTRANSMISSION,
+		sfencing:sfencingvalue,
+		sfencingrepair:sfencingrepairvalue,
+		sfencingPhoto:photoFENCING,
+		watertank:swatertankvalue,
+		watertankPhoto:photoWATERTANK,
+		undergroundstorage:sundergroundstoragevalue,
+		undergroundstoragePhoto:photoUNDERGROUNDSTORAGE,
+		roads:roadsvalue,
+		roadscoverage:roadscoveragevalue,
+		roadsPhoto:photoROADS,
+		trails:trailsvalue,
+		trailsPhoto:photoTRAILS,
+		ohv:ohvvalue,
+		ohvuse:ohvusevalue,
+		ohvPhoto:photoOHV,
+		homeless:homelessvalue,
+		homelessPhoto:photoHOMELESS,
+		dogs:dogsvalue,
+		dogsPhoto:photoDOGS,
+		ravens:ravensvalue,
+		ravensPhoto:photoRAVENS,
+		yuma:yumavalue,
+		yumaPhoto:photoYUMA,
+		caliblackrail:calirailvalue,
+		calirailPhoto:photoCALIRAIL,
+		burrowowl:burrowlvalue,
+		burrowowlPhoto:photoBURROWL,
+		swflycatcher:swflycatchervalue,
+		swflycatcherPhoto:photoSWFLYCATCHER,
+		crissal:crissalvalue,
+		crissalPhoto:photoCRISSAL,
+		leconte:lecontevalue,
+		lecontePhoto:photoLECONTE,
+		leastbell:leastbellvalue,
+		leastbellPhoto:photoLEASTBELL,
+		greyvireo:greyvireovalue,
+		greyvireoPhoto:photoGREYVIREO,
+		yellowwarbler:yellowwarblervalue,
+		yellowwarblerPhoto:photoYELLOWWARBLER,
+		yellowbreastedchat:yellowbreastedchatvalue,
+		yellowbreastedchatPhoto:photoYELLOWBREASTEDCHAT,
+		summertanager:summertanagervalue,
+		summertanagerPhoto:photoSUMMERTANAGER,
+		sandtreadercricket:sandtreadercricketvalue,
+		sandtreadercricketsighting:sandtreadercricketsightingvalue,
+		sandtreadercricketburrow:sandtreadercricketburrowvalue,
+		sandtreadercricketPhoto:photoSANDTREADERCRICKET,
+		jerusalemcricket:jerusalemcricketvalue,
+		jerusalemcricketPhoto:photoJERUSALEMCRICKET,
+		pupfish:pupfishvalue,
+		pupfishPhoto:photoPUPFISH,
+		tortoise:tortoisevalue,
+		tortoisePhoto:photoTORTOISE,
+		fthlizard:fthlizardvalue,
+		fthlizardPhoto:photoFTHLIZARD,
+		cvftlizard:cvftlizardvalue,
+		cvftlizardPhoto:photoCVFTLIZARD,
+		burrows:burrowsvalue,
+		burrowsPhoto:photoBURROWS,
+		southernyellowbat:southernyellowbatvalue,
+		southernyellowbatPhoto:photoSOUTHERNYELLOWBAT,
+		rtgsquirrel:rtgsquirrelvalue,
+		rtgsquirrelPhoto:photoRTGSQUIRREL,
+		pspringspmouse:pspringspmousevalue,
+		pspringspmousePhoto:photoPSPRINGSPMOUSE,
+		pbighornsheep:pbighornsheepvalue,
+		pbighornsheepPhoto:photoPBIGHORNSHEEP,
+		cowbirds:cowbirdsvalue,
+		cowbirdsPhoto:photoCOWBIRDS,
+		meccaaster:meccaastervalue,
+		meccaasterPhoto:photoMECCAASTER,
+		orocopiasage:orocopiasagevalue,
+		orocopiasagePhoto:photoOROCOPIASAGE,
+		tribbedmilkvetch:tribbedmilkvetchvalue,
+		tribbedmilkvetchPhoto:photoTRIBBEDMILKVETCH,
+		cvmilkvetch:cvmilkvetchvalue,
+		cvmilkvetchPhoto:photoCVMILKVETCH,
+		lsbmlinanthus:lsbmlinanthusvalue,
+		lsbmlinanthusPhoto:photoLSBMLINANTHUS,
+		saharamustard:saharamustardvalue,
+		saharamustardcoverage:saharamustardcoveragevalue,
+		saharamustardcontrol:saharamustardcontrolvalue,
+		saharamustardPhoto:photoSAHARAMUSTARD,
+		schismusgrass:schismusgrassvalue,
+		schismusgrasscoverage:schismusgrasscoveragevalue,
+		schismusgrasscontrol:schismusgrasscontrolvalue,
+		schismusgrassPhoto:photoSCHISMUSGRASS,
+		tamarixaphylla:tamarixaphyllavalue,
+		tamarixaphyllacoverage:tamarixaphyllacoveragevalue,
+		tamarixaphyllacontrol:tamarixaphyllacontrolvalue,
+		tamarixaphyllaPhoto:photoTAMARIXAPHYLLA,
+		tamarixramossisima:tamarixramossisimavalue,
+		tamarixramossisimacoverage:tamarixramossisimacoveragevalue,
+		tamarixramossisimacontrol:tamarixramossisimacontrolvalue,
+		tamarixramossisimaPhoto:photoTAMARIXRAMOSSISIMA,
+		fountaingrass:fountaingrassvalue,
+		fountaingrasscoverage:fountaingrasscoveragevalue,
+		fountaingrasscontrol:fountaingrasscontrolvalue,
+		fountaingrassPhoto:photoFOUNTAINGRASS,
+		bufflegrass:bufflegrassvalue,
+		bufflegrasscoverage:bufflegrasscoveragevalue,
+		bufflegrasscontrol:bufflegrasscontrolvalue,
+		bufflegrassPhoto:photoBUFFLEGRASS,
+		arundo:arundovalue,
+		arundocoverage:arundocoveragevalue,
+		arundocontrol:arundocontrolvalue,
+		arundoPhoto:photoARUNDO,
+		accessfencing:accessfencingvalue,
+		boulders:bouldersvalue,
+		gate:gatevalue,
+		roadblock:roadblockvalue,
+		comments:commentsvalue
+		};
+
+   dbCVSurveys.put(survey, function callback(err, result) {
+    if (!err) {
+      window.alert('Successfully saved record!');
+      console.log('Successfully saved record!');
+//      localStorage.clear();
+        window.location.assign("index.html");
+    }
+    if (err) {
+    	console.log(err);
+    	localStorage.setItem('SubmitERROR', err)
+    }
+  });
+}
+
+
+var statusElem = document.getElementById('status');
+
+setInterval(function () {
+  statusElem.className = navigator.onLine ? 'online' : 'offline';
+//  statusElem.innerHTML = navigator.onLine ? 'online' : 'offline';  
+}, 2500);
+  
+
+
+
+</script>   
+ 
+	<script src="js/surveyForm.js"></script> 
+    
+</body>
+</html>
+	
